@@ -3,8 +3,18 @@ package models
 import (
 	"log"
 
-	db "../database"
+	"../database"
 )
+
+var db *sql.DB
+
+
+type Person struct {
+   Id int `json:"id" form:"id"`
+   Name string `json:"name" form:"name"`
+   Telephone string `json:"telephone" form:"telephone"`
+}
+func main() {
 
 type Person struct {
 	Id        int    `json:"id" form:"id"`
@@ -102,3 +112,4 @@ func (p *Person) GetPersons() (persons []Person, err error) {
 
 	return
 }
+

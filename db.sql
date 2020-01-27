@@ -9,10 +9,9 @@
 -- ) engine=innodb default charset=utf8;
 
 
-CREATE TABLE `person` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(40) NOT NULL DEFAULT '',
-  `last_name` varchar(40) NOT NULL DEFAULT '',
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  `telephone` varchar(12) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;

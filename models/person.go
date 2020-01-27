@@ -1,8 +1,9 @@
 package models
 
 import (
-	db "gin_exercise/database"
 	"log"
+
+	db "../database"
 )
 
 type Person struct {

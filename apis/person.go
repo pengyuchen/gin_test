@@ -2,12 +2,12 @@ package apis
 
 import (
 	"fmt"
-	_ "gin_exercise/database"
-	"gin_exercise/models"
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"strconv"
+
+	"../models"
+	"github.com/gin-gonic/gin"
 )
 
 func IndexApi(c *gin.Context) {

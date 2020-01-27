@@ -1,8 +1,8 @@
 package routers
 
 import (
+	"../apis"
 	"github.com/gin-gonic/gin"
-	"gin_exercise/apis"
 )
 
 func InitRouter() *gin.Engine {

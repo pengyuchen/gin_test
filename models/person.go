@@ -9,18 +9,19 @@ import (
 var db *sql.DB
 
 
-type Person struct {
-   Id int `json:"id" form:"id"`
-   Name string `json:"name" form:"name"`
-   Telephone string `json:"telephone" form:"telephone"`
-}
-func main() {
+// type Person struct {
+//    Id int `json:"id" form:"id"`
+//    Name string `json:"name" form:"name"`
+//    Telephone string `json:"telephone" form:"telephone"`
+// }
 
 type Person struct {
 	Id        int    `json:"id" form:"id"`
 	FirstName string `json:"first_name" form:"first_name"`
 	LastName  string `json:"last_name" form:"last_name"`
 }
+
+func main() {
 
 func (p *Person) AddPerson() (id int64, err error) {
 	stmtIn, err := db.SqlDB.Prepare("INSERT INTO person(firstname, lastname) VALUES(?, ?)")

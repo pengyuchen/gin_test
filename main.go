@@ -24,7 +24,8 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:jr@tcp(127.0.0.1:3306)/test?parseTime=true")
+	db, err := sql.Open("mysql", "root:root@tcp(localhost)/dbname?charset=utf8&parseTime=True&loc=Local")
+	// db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/test?parseTime=true")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -38,7 +39,6 @@ func main() {
 	}
 
 	router := gin.Default()
-
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "It works")
 	})

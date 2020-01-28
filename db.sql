@@ -1,7 +1,7 @@
 -- MySql 
 
-create database if not exists gin_exer;
-use gin_exer;
+create database if not exists mysql;
+use mysql;
 create table person (
 	id int(11) not null auto_increment primary key,
 	firstname varchar(40) not null default "",

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"./routers"
 
 	"github.com/gin-gonic/gin"
@@ -13,9 +11,9 @@ import (
 func main() {
 
 	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "It works")
-	})
+	// router.GET("/", func(c *gin.Context) {
+	// 	c.String(http.StatusOK, "It works")
+	// })
 	routers.InitRouter()
 
 	router.Run(":8000")

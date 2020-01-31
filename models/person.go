@@ -12,6 +12,10 @@ type Person struct {
 	LastName  string `json:"last_name" form:"last_name"`
 }
 
+type People struct {
+	Persons []Person `json:"data"`
+}
+
 func (p *Person) AddPerson() (id int64, err error) {
 	stmtIn, err := db.SqlDB.Prepare("INSERT INTO person(firstname, lastname) VALUES(?, ?)")
 	if err != nil {

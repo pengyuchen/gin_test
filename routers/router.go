@@ -15,5 +15,8 @@ func InitRouter() *gin.Engine {
 	r.GET("/person/:id", apis.GetPersonApi)
 	r.GET("/persons", apis.GetPersonsApi)
 
+	r.POST("/persons/DeleteAllById", apis.DelPersonsIdApi)
+	r.POST("/persons/AddMultiPersons", apis.AddMultiPersonApi)
+
 	return r
 }

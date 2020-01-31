@@ -18,6 +18,9 @@ func AddPersonApi(c *gin.Context) {
 	firstName := c.Request.FormValue("first_name")
 	lastName := c.Request.FormValue("last_name")
 
+	log.Println(firstName)
+	log.Println(lastName)
+
 	p := models.Person{FirstName: firstName, LastName: lastName}
 
 	ra, err := p.AddPerson()
@@ -26,6 +29,37 @@ func AddPersonApi(c *gin.Context) {
 	}
 
 	msg := fmt.Sprintf("insert successful %d", ra)
+
+	c.JSON(http.StatusOK, gin.H{
+		"msg": msg,
+	})
+}
+
+func AddMultiPersonApi(c *gin.Context) {
+	var people models.People
+	err := c.BindJSON(&people)
+	// d, err := c.GetRawData()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Printf("%+v\n", people.Persons)
+	c.JSON(http.StatusOK, people.Persons)
+}
+
+func DelPersonsIdApi(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Request.FormValue("id"))
+
+	log.Println(id)
+
+	p := models.Person{Id: id}
+
+	ra, err := p.DelPerson()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	msg := fmt.Sprintf("Delete person %d successful, Affected %d row.", id, ra)
 
 	c.JSON(http.StatusOK, gin.H{
 		"msg": msg,

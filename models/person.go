@@ -12,7 +12,7 @@ type Person struct {
 	LastName  string `json:"last_name" form:"last_name"`
 }
 
-type People struct {
+type Persons struct {
 	Persons []Person `json:"data"`
 }
 

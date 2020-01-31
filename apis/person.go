@@ -36,15 +36,15 @@ func AddPersonApi(c *gin.Context) {
 }
 
 func AddMultiPersonApi(c *gin.Context) {
-	var people models.People
-	err := c.BindJSON(&people)
+	var persons models.Persons
+	err := c.BindJSON(&persons)
 	// d, err := c.GetRawData()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	fmt.Printf("%+v\n", people.Persons)
-	c.JSON(http.StatusOK, people.Persons)
+	fmt.Printf("%+v\n", persons.Persons)
+	c.JSON(http.StatusOK, persons.Persons)
 }
 
 func DelPersonsIdApi(c *gin.Context) {

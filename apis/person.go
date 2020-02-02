@@ -37,14 +37,33 @@ func AddPersonApi(c *gin.Context) {
 
 func AddMultiPersonApi(c *gin.Context) {
 	var persons models.Persons
+	// var persons []models.Person
 	err := c.BindJSON(&persons)
-	// d, err := c.GetRawData()
+
 	if err != nil {
 		log.Fatalln(err)
 	}
+	for _, person := range persons.Persons {
 
-	fmt.Printf("%+v\n", persons.Persons)
-	c.JSON(http.StatusOK, persons.Persons)
+		firstName := person.FirstName
+		lastName := person.LastName
+
+		p := models.Person{FirstName: firstName, LastName: lastName}
+
+		ra, err := p.AddPerson()
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		msg := fmt.Sprintf("insert successful %d", ra)
+
+		c.JSON(http.StatusOK, gin.H{
+			"msg": msg,
+		})
+
+		// fmt.Printf("%+v\n", person.FirstName)   // show on terminal
+		// c.JSON(http.StatusOK, person.FirstName) //show on postman
+	}
 }
 
 func DelPersonsIdApi(c *gin.Context) {

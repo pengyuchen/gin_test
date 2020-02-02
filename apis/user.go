@@ -14,16 +14,16 @@ func IndexApi(c *gin.Context) {
 	c.String(http.StatusOK, "It works.")
 }
 
-func AddPersonApi(c *gin.Context) {
+func AddUserApi(c *gin.Context) {
 	firstName := c.Request.FormValue("first_name")
 	lastName := c.Request.FormValue("last_name")
 
 	log.Println(firstName)
 	log.Println(lastName)
 
-	p := models.Person{FirstName: firstName, LastName: lastName}
+	p := models.User{FirstName: firstName, LastName: lastName}
 
-	ra, err := p.AddPerson()
+	ra, err := p.AddUser()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,22 +35,22 @@ func AddPersonApi(c *gin.Context) {
 	})
 }
 
-func AddMultiPersonApi(c *gin.Context) {
-	var persons models.Persons
+func AddUsersApi(c *gin.Context) {
+	var users models.Users
 	// var persons []models.Person
-	err := c.BindJSON(&persons)
+	err := c.BindJSON(&users)
 
 	if err != nil {
 		log.Fatalln(err)
 	}
-	for _, person := range persons.Persons {
+	for _, user := range users.Users {
 
-		firstName := person.FirstName
-		lastName := person.LastName
+		firstName := user.FirstName
+		lastName := user.LastName
 
-		p := models.Person{FirstName: firstName, LastName: lastName}
+		p := models.User{FirstName: firstName, LastName: lastName}
 
-		ra, err := p.AddPerson()
+		ra, err := p.AddUser()
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -66,14 +66,43 @@ func AddMultiPersonApi(c *gin.Context) {
 	}
 }
 
-func DelPersonsIdApi(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Request.FormValue("id"))
+func DelUserIdsApi(c *gin.Context) {
+	var users models.Users
+	// var persons []models.Person
+	err := c.BindJSON(&users)
 
-	log.Println(id)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	p := models.Person{Id: id}
+	for _, user := range users.Users {
 
-	ra, err := p.DelPerson()
+		id := user.Id
+
+		log.Println(id)
+
+		p := models.User{Id: id}
+
+		ra, err := p.DelUser()
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		msg := fmt.Sprintf("Delete person %d successful, Affected %d row.", id, ra)
+
+		c.JSON(http.StatusOK, gin.H{
+			"msg": msg,
+		})
+	}
+}
+
+func DelUserApi(c *gin.Context) {
+	cid := c.Param("id")
+	id, _ := strconv.Atoi(cid)
+
+	p := models.User{Id: id}
+
+	ra, err := p.DelUser()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -85,36 +114,18 @@ func DelPersonsIdApi(c *gin.Context) {
 	})
 }
 
-func DelPersonApi(c *gin.Context) {
+func ModUserApi(c *gin.Context) {
 	cid := c.Param("id")
 	id, _ := strconv.Atoi(cid)
 
-	p := models.Person{Id: id}
-
-	ra, err := p.DelPerson()
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	msg := fmt.Sprintf("Delete person %d successful, Affected %d row.", id, ra)
-
-	c.JSON(http.StatusOK, gin.H{
-		"msg": msg,
-	})
-}
-
-func ModPersonApi(c *gin.Context) {
-	cid := c.Param("id")
-	id, _ := strconv.Atoi(cid)
-
-	p := models.Person{Id: id}
+	p := models.User{Id: id}
 
 	err := c.Bind(&p)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	ra, err := p.ModPerson()
+	ra, err := p.ModUser()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -126,30 +137,30 @@ func ModPersonApi(c *gin.Context) {
 	})
 }
 
-func GetPersonApi(c *gin.Context) {
+func GetUserApi(c *gin.Context) {
 	cid := c.Param("id")
 	id, _ := strconv.Atoi(cid)
-	p := models.Person{Id: id}
+	p := models.User{Id: id}
 
-	person, err := p.GetPerson()
+	user, err := p.GetUser()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"person": person,
+		"user": user,
 	})
 }
 
-func GetPersonsApi(c *gin.Context) {
-	p := models.Person{}
+func GetUsersApi(c *gin.Context) {
+	p := models.User{}
 
-	persons, err := p.GetPersons()
+	users, err := p.GetUsers()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"persons": persons,
+		"users": users,
 	})
 }

@@ -9,14 +9,15 @@ func InitRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/", apis.IndexApi)
-	r.POST("/person", apis.AddPersonApi)
-	r.DELETE("/person/:id", apis.DelPersonApi)
-	r.PUT("/person/:id", apis.ModPersonApi)
-	r.GET("/person/:id", apis.GetPersonApi)
-	r.GET("/persons", apis.GetPersonsApi)
+	r.POST("/user", apis.AddUserApi)
+	r.DELETE("/user/:id", apis.DelUserApi)
+	r.PUT("/user/:id", apis.ModUserApi)
+	r.GET("/user/:id", apis.GetUserApi)
+	r.GET("/users", apis.GetUsersApi)
 
-	r.POST("/persons/DeleteAllById", apis.DelPersonsIdApi)
-	r.POST("/persons/AddMultiPersons", apis.AddMultiPersonApi)
+	// use json to add and delete multiple persons
+	r.POST("/users/DeleteUserByIds", apis.DelUserIdsApi)
+	r.POST("/users/AddUsers", apis.AddUsersApi)
 
 	return r
 }

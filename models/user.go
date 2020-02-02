@@ -6,18 +6,18 @@ import (
 	db "../database"
 )
 
-type Person struct {
+type User struct {
 	Id        int    `json:"id" form:"id"`
 	FirstName string `json:"first_name" form:"first_name"`
 	LastName  string `json:"last_name" form:"last_name"`
 }
 
-type Persons struct {
-	Persons []Person `json:"data"`
+type Users struct {
+	Users []User `json:"data"`
 }
 
-func (p *Person) AddPerson() (id int64, err error) {
-	stmtIn, err := db.SqlDB.Prepare("INSERT INTO person(firstname, lastname) VALUES(?, ?)")
+func (p *User) AddUser() (id int64, err error) {
+	stmtIn, err := db.SqlDB.Prepare("INSERT INTO user(firstname, lastname) VALUES(?, ?)")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,8 +35,8 @@ func (p *Person) AddPerson() (id int64, err error) {
 	return
 }
 
-func (p *Person) DelPerson() (ra int64, err error) {
-	stmtOut, err := db.SqlDB.Prepare("DELETE FROM person WHERE id=?")
+func (p *User) DelUser() (ra int64, err error) {
+	stmtOut, err := db.SqlDB.Prepare("DELETE FROM user WHERE id=?")
 	if err != nil {
 		log.Println(err)
 	}
@@ -51,8 +51,8 @@ func (p *Person) DelPerson() (ra int64, err error) {
 	return
 }
 
-func (p *Person) ModPerson() (ra int64, err error) {
-	stmtInt, err := db.SqlDB.Prepare("UPDATE person SET firstname=?, lastname=? WHERE id=?")
+func (p *User) ModUser() (ra int64, err error) {
+	stmtInt, err := db.SqlDB.Prepare("UPDATE user SET firstname=?, lastname=? WHERE id=?")
 	if err != nil {
 		log.Println(err)
 	}
@@ -67,8 +67,8 @@ func (p *Person) ModPerson() (ra int64, err error) {
 	return
 }
 
-func (p *Person) GetPerson() (person Person, err error) {
-	stmtOut, err := db.SqlDB.Prepare("SELECT id, firstname, lastname FROM person WHERE id=?")
+func (p *User) GetUser() (person User, err error) {
+	stmtOut, err := db.SqlDB.Prepare("SELECT id, firstname, lastname FROM user WHERE id=?")
 	if err != nil {
 		log.Println(err)
 	}
@@ -81,10 +81,10 @@ func (p *Person) GetPerson() (person Person, err error) {
 	return
 }
 
-func (p *Person) GetPersons() (persons []Person, err error) {
-	persons = make([]Person, 0)
+func (p *User) GetUsers() (users []User, err error) {
+	users = make([]User, 0)
 
-	stmsOut, err := db.SqlDB.Prepare("SELECT id, firstname, lastname FROM person")
+	stmsOut, err := db.SqlDB.Prepare("SELECT id, firstname, lastname FROM user")
 	if err != nil {
 		log.Println(err)
 	}
@@ -95,9 +95,9 @@ func (p *Person) GetPersons() (persons []Person, err error) {
 	}
 
 	for rows.Next() {
-		var person Person
-		rows.Scan(&person.Id, &person.FirstName, &person.LastName)
-		persons = append(persons, person)
+		var user User
+		rows.Scan(&user.Id, &user.FirstName, &user.LastName)
+		users = append(users, user)
 	}
 
 	if err = rows.Err(); err != nil {

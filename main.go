@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./routers"
+	"Gin_Mysql_api/routers"
 	// "github.com/gin-gonic/gin"
 	// _ "github.com/go-sql-driver/mysql"
 	// "gopkg.in/gin-gonic/gin.v1"
